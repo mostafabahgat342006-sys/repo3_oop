@@ -73,9 +73,9 @@ public class Shipment
         }
     }
 
-    public DeliveryAddress Destination { get; set; }
+    public virtual DeliveryAddress Destination { get; set; }
 
-    public decimal EstimatedCost   // computed property
+    public virtual decimal EstimatedCost   // computed property
     {
         get
         {
@@ -111,7 +111,20 @@ public class Shipment
         }
     }
 
-    public void PrintShipment()
+    // Overloading
+    public void UpdateWeight(decimal weight)
+    {
+        Weight = weight;
+    }
+
+    public void UpdateWeight(decimal weight, decimal packingWeight)  
+    {
+        Weight = weight + packingWeight;
+    }
+
+
+
+    public virtual void PrintShipment()
     {
         Console.WriteLine("Tracking Code: " + TrackingCode);
         Console.WriteLine("Description: " + Description);

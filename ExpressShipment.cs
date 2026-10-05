@@ -20,7 +20,7 @@ public class ExpressShipment : Shipment
         }
     }
 
-    public decimal EstimatedCost    // override
+    public override decimal EstimatedCost    // override
     {
         get
         {
@@ -35,8 +35,19 @@ public class ExpressShipment : Shipment
         decimal deliveryFee,
         DeliveryAddress destination,
         decimal extraFee  // new 
-        ) : base(trackingCode, description, weight, deliveryFee, destination)
+        ) : base(trackingCode, description, weight, deliveryFee, destination) //  chaining
     {
         ExtraFee = extraFee;
+    }
+
+
+    public override void PrintShipment()
+    {
+        Console.WriteLine("Tracking Code: " + TrackingCode);
+        Console.WriteLine("Description: " + Description);
+        Console.WriteLine("Weight: " + Weight);
+        Console.WriteLine("Delivery Fee: " + DeliveryFee);
+        Console.WriteLine("Estimated Cost: " + EstimatedCost);
+        Console.WriteLine("Extra Fee: " + ExtraFee);
     }
 }

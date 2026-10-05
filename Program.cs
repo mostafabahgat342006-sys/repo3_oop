@@ -48,20 +48,14 @@ internal class Program
 
 
 
-
-
-
-
-
-
-
         DeliveryCenter center = new DeliveryCenter();  // object 
 
         Console.Write("Enter Center Name: ");
         center.CenterName = Console.ReadLine();
 
-        Console.WriteLine("\nEnter Standard Shipment Data:");
 
+        Console.WriteLine("\nEnter Standard Shipment Data:");
+        //------------------------------------------------
         Console.Write("Tracking Code: ");
         string trackingCode = Console.ReadLine();
 
@@ -82,8 +76,7 @@ internal class Program
 
         Console.Write("Building Number: ");
         int buildingNumber = int.Parse(Console.ReadLine());
-
-
+        // ----------------------------------------------------
 
         DeliveryAddress destination =
             new DeliveryAddress(city, street, buildingNumber);
@@ -98,7 +91,7 @@ internal class Program
 
 
         Console.WriteLine("\nEnter Express Shipment Data:");
-
+        //-------------------------------------------------------
         Console.Write("Tracking Code: ");
         string expressTrackingCode = Console.ReadLine();
 
@@ -122,6 +115,7 @@ internal class Program
 
         Console.Write("Extra Fee: ");
         decimal extraFee = decimal.Parse(Console.ReadLine());
+        //------------------------------------------------------------
 
         DeliveryAddress expressDestination =
             new DeliveryAddress(
@@ -144,6 +138,7 @@ internal class Program
 
         Console.WriteLine("\nEnter International Shipment Data:");
 
+        //--------------------------------------------------------
         Console.Write("Tracking Code: ");
         string internationalTrackingCode = Console.ReadLine();
 
@@ -170,6 +165,7 @@ internal class Program
 
         Console.Write("Customs Fee: ");
         decimal customsFee = decimal.Parse(Console.ReadLine());
+        //--------------------------------------------------------------------------
 
         DeliveryAddress internationalDestination =
             new DeliveryAddress(
@@ -189,14 +185,73 @@ internal class Program
             );
 
 
+        //----------------------------------------------------------------------------
+        //----------------------------------------------------------------------------
+
+        //  for add shipments
+
         center.AddShipment(standard);
         center.AddShipment(express);
         center.AddShipment(international);
 
 
+        // i. 
+        //  for print shipments
+
+        DeliveryHelper.PrintShipmentDetails(standard);
+        DeliveryHelper.PrintShipmentDetails(express);
+        DeliveryHelper.PrintShipmentDetails(international);
+
+
+        // j. 
+        // to demonstrate overloading
+
+        standard.UpdateWeight(10);
+        express.UpdateWeight(10, 2);
+
+
+        // k. 
+
+        Shipment[] shipments = { standard, express, international }; // array object from Shipment
+
+        Console.WriteLine("\nMixed Shipments:");
+
+        foreach (Shipment shipment in shipments)
+        {
+            shipment.PrintShipment();
+        }
+
+
+        // l. 
+
+        CompletedShipment completed = new CompletedShipment(
+            "C001",
+            "Completed Shipment",
+            10,
+            100,
+            destination
+        );
+
+        PriorityInternationalShipment priority = new PriorityInternationalShipment(
+            "P001",
+            "Priority Shipment",
+            10,
+            100,
+            destination,
+            "Egypt",
+            50
+        );
+
+        priority.GenerateCustomsReport();
+
+
+
+        // another type of printing not depend on polymorphism 
+
         Console.WriteLine("\nAll Shipments:");
         center.PrintAllShipments();
 
+        //----------------------------------------------------------------------
 
         Console.Write("\nEnter Tracking Code to search: ");
         string searchCode = Console.ReadLine();
@@ -212,6 +267,7 @@ internal class Program
             Console.WriteLine("Shipment not found.");
         }
 
+        //----------------------------------------------------------------------
 
         Console.Write("\nEnter Tracking Code to remove: ");
         string removeCode = Console.ReadLine();
@@ -228,9 +284,10 @@ internal class Program
         }
 
 
+
+
         Console.WriteLine("\nRemaining Shipments now:");
         center.PrintAllShipments();
-
 
 
 

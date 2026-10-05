@@ -37,13 +37,21 @@ public class InternationalShipment : Shipment
         }
     }
 
-    public decimal EstimatedCost    // override
+    public override decimal EstimatedCost    // override
     {
         get
         {
             return DeliveryFee + (Weight * 5) + CustomsFee;
         }
     }
+
+    public virtual void GenerateCustomsReport()
+    {
+        Console.WriteLine("Customs Report");
+    }
+
+
+
 
     public InternationalShipment(
         string trackingCode,
@@ -53,9 +61,22 @@ public class InternationalShipment : Shipment
         DeliveryAddress destination,
         string destinationCountry, // new 
         decimal customsFee   // new
-        ) : base(trackingCode, description, weight, deliveryFee, destination)
+        ) : base(trackingCode, description, weight, deliveryFee, destination)  //  chaining
     {
         DestinationCountry = destinationCountry;
         CustomsFee = customsFee;
+    }
+
+
+
+    public override void PrintShipment()
+    {
+        Console.WriteLine("Tracking Code: " + TrackingCode);
+        Console.WriteLine("Description: " + Description);
+        Console.WriteLine("Weight: " + Weight);
+        Console.WriteLine("Delivery Fee: " + DeliveryFee);
+        Console.WriteLine("Estimated Cost: " + EstimatedCost);
+        Console.WriteLine("Destination Country: " + DestinationCountry);
+        Console.WriteLine("Customs Fee: " + CustomsFee);
     }
 }
